@@ -1,6 +1,6 @@
 import "../App.css";
 
-const FaceRecognition = ({ imageUrl, box, faceCountPrompt }) => {
+const FaceRecognition = ({ imageUrl, box }) => {
   return (
     <div className="pa1 flex justify-center">
       <div className="relative mt3">
