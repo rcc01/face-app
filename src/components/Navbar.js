@@ -2,17 +2,12 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import logo from "../images/machine-learning.jpg";
 import "../App.css";
 
 export default function Example() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        {/* <div>
-          <img src={logo} alt="logo" className="logo" />
-        </div> */}
-
         <Navbar.Brand className="brand" href="#home">
           <p style={{ fontSize: "30px", margin: "20px" }}>
             {" "}
