@@ -1,14 +1,29 @@
 import { useState } from "react";
-import ImageLinkForm from "./ImageLinkForm";
+import Container from "react-bootstrap/Container";
 import ToggleVisibility from "./ToggleVisibility";
 import FaceRecognition from "./FaceRecognition";
-import Container from "react-bootstrap/Container";
-import "../App.css";
+import ImageLinkForm from "./ImageLinkForm";
+import DescriptionArea from "./DescriptionArea";
 
-const Home = () => {
-  const [state, setState] = useState({ input: "", imageUrl: "", box: [] });
+const LogoDetection = () => {
+  const [state, setState] = useState({
+    input: "",
+    imageUrl: "",
+    box: [],
+    brandName: "",
+    percentage: 0,
+  });
 
   const calculateLogoLocation = (result) => {
+    // should I use the same function to ?
+    console.log(result);
+    const logoName = result.outputs[0].data.regions[0].data.concepts[0];
+    console.log(logoName);
+    const name =
+      logoName.name.charAt(0).toUpperCase() + //Capitalize First Letter of Name
+      logoName.name.slice(1);
+    console.log(name);
+
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
@@ -29,7 +44,7 @@ const Home = () => {
     setState({ input: e.target.value });
   };
 
-  const displayFaceBox = (box) => {
+  const displayLogoBox = (box) => {
     setState({ box: box, imageUrl: state.input });
     console.log(box);
   };
@@ -48,26 +63,24 @@ const Home = () => {
     )
       .then((response) => response.json())
       // result.outputs[0].data.regions[0].region_info.bounding_box
-      // .then((result) => console.log(result))
 
-      .then((result) => displayFaceBox(calculateLogoLocation(result)))
+      .then((result) => displayLogoBox(calculateLogoLocation(result)))
+
       .catch((error) => console.log("error", error));
-    // .then((result) => console.log(displayFaceBox(calculateLogoLocation(result)))
+    // getLogoName();
+    // .then((result) => console.log(displayLogoBox(calculateLogoLocation(result)))
   };
 
-  const USER_ID = "ch68ksmt7744";
-  // Your PAT (Personal Access Token) can be found in the portal under Authentification
-  const PAT = "74fd5e2da34448e9b999f1a2da3154d8";
-  const APP_ID = "89500fa210b74d44aaca62a32a76ccfb";
-  // Change these to whatever model and image URL you want to use
-  const MODEL_ID = "face-detection";
-  const MODEL_VERSION_ID = "6dc7e46bc9124c5c8824be4822abe105";
-  const IMAGE_URL = state.input;
-  // "https://img.freepik.com/premium-psd/adult-man-nutural-confident-portrait-concept_53876-22253.jpg?w=2000";
+  // const getLogoName = (response) => {
+  //   console.log(response);
+  // };
 
-  ///////////////////////////////////////////////////////////////////////////////////
-  // YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE TO RUN THIS EXAMPLE
-  ///////////////////////////////////////////////////////////////////////////////////
+  const USER_ID = "ch68ksmt7744";
+  const PAT = "74fd5e2da34448e9b999f1a2da3154d8";
+  const APP_ID = "323";
+  const MODEL_ID = "logos-yolov5";
+  const MODEL_VERSION_ID = "a199488c92834f07a56a0f2244bf4710";
+  const IMAGE_URL = state.input;
 
   const raw = JSON.stringify({
     user_app_id: {
@@ -97,12 +110,9 @@ const Home = () => {
   return (
     <Container>
       <div className="main--container">
-        <p className="brand">
-          <span> Face Dectection</span>
-        </p>
+        <p className="brand">Logo Detection</p>
         <p className="description">
-          Paste an img url below and the App will scan the exact location of the
-          face/s
+          Paste an img url below and the App will scan the logos in the picture
         </p>
         <ToggleVisibility>
           <ImageLinkForm
@@ -110,10 +120,11 @@ const Home = () => {
             onButtonSubmit={onButtonSubmit}
           />
           <FaceRecognition imageUrl={state.imageUrl} box={state.box} />
+          <DescriptionArea />
         </ToggleVisibility>
       </div>
     </Container>
   );
 };
 
-export default Home;
+export default LogoDetection;

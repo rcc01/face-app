@@ -3,7 +3,7 @@ import "./index.css";
 import App from "./App";
 import "tachyons";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Settings from "./components/Settings";
+import LogoDetection from "./components/LogoDetection";
 import Reload from "./components/Reload";
 import Location from "./components/Location";
 import Home from "./components/Home";
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/settings",
-        element: <Settings />,
+        path: "/logo",
+        element: <LogoDetection />,
       },
       {
         path: "/reload",

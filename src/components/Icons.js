@@ -12,9 +12,9 @@ const Icons = () => {
           </Link>
         </li>
         <li>
-          <Link to={`/settings`}>
+          <Link to={`/logo`}>
             <span className="icon-cog"></span>
-            <span className="screen-reader-text">Settings</span>
+            <span className="screen-reader-text">Logo Detection</span>
           </Link>
         </li>
         <li>
