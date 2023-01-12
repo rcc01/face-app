@@ -86,16 +86,17 @@
 }
 
 .icon-home:after {
-  content: "\2302";
+  /* content: "\2302"; */
+  content: "🎃";
 }
 .icon-cog:after {
-  content: "\2699";
+  content: "🌈";
 }
 .icon-cw:after {
-  content: "\27f3";
+  content: "🐣";
 }
 .icon-location:after {
-  content: "\e724";
+  content: "🍏";
 }
 
 * {

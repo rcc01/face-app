@@ -1,6 +1,7 @@
 import "../App.css";
 
 const FaceRecognition = ({ imageUrl, box }) => {
+  console.log(box);
   return (
     <div className="pa1 flex justify-center">
       <div className="relative mt3">
@@ -12,6 +13,7 @@ const FaceRecognition = ({ imageUrl, box }) => {
           width="500"
           height="auto"
         />
+
         {box !== undefined &&
           box.map((box) => {
             return (
