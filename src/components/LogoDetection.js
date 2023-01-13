@@ -51,7 +51,7 @@ const LogoDetection = () => {
   };
 
   const brandLogo = (brandName) => {
-    setState([{ brandName: brandName }]);
+    setState({ brandName: [brandName] });
     console.log(brandName);
   };
 

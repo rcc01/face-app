@@ -2,7 +2,7 @@ const DescriptionArea = ({ brandName }) => {
   console.log(brandName);
   return (
     <div>
-      <p>Description Area</p>
+      <p>{brandName !== undefined ? brandName : "Description Area"}</p>
     </div>
   );
 };
