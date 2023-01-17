@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -5,19 +6,27 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import "../App.css";
 
 export default function Example() {
+  const navigate = useNavigate();
+
+  const navigateHome = () => {
+    navigate(0);
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand className="brand" href="#home">
-          <p style={{ fontSize: "30px", margin: "20px" }}>
-            {" "}
+        <Navbar.Brand className="brand" href="/">
+          <button
+            style={{ fontSize: "30px", margin: "20px" }}
+            onClick={navigateHome}
+          >
             Machine Learning Apps
-          </p>
+          </button>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

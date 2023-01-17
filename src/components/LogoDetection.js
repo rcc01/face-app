@@ -11,7 +11,7 @@ const LogoDetection = () => {
     input: "",
     imageUrl: "",
     box: [],
-    brandName: [],
+    brandNames: [],
     percentage: 0,
   });
 
@@ -21,7 +21,6 @@ const LogoDetection = () => {
     const height = Number(image.height);
     if (result.outputs[0].data.regions !== undefined) {
       return result.outputs[0].data.regions.map((face) => {
-        // asi es como localizamos todas las caras... con map(face)
         const clarifaiFace = face.region_info.bounding_box;
         return {
           leftCol: clarifaiFace.left_col * width,
@@ -33,31 +32,22 @@ const LogoDetection = () => {
     }
   };
 
-  const displayLogoName = (result) => {
+  const retrieveLogoNames = (result) => {
     // const logoName = result.outputs[0].data.regions[0].data.concepts[0];
     const logoName = result.outputs[0].data.regions;
     if (logoName !== undefined) {
-      return logoName.map((logo) => {
-        const allLogos = logo.data.concepts[0].name;
-        console.log(typeof allLogos);
+      return logoName.flatMap((logo) => {
+        const allLogos = logo.data.concepts.map((concept) => {
+          return concept.name;
+        });
         // returns strings with all the name logos in the picture
         return allLogos;
-      });
+      }); // return flattened string[]
     }
   };
 
   const onInputChange = (e) => {
     setState({ input: e.target.value });
-  };
-
-  const brandLogo = (brandName) => {
-    setState({ brandName: [brandName] });
-    console.log(brandName);
-  };
-
-  const displayLogoBox = (box) => {
-    setState({ box: box, imageUrl: state.input });
-    // show all the logo boxes in the pictures
   };
 
   const onButtonSubmit = (e) => {
@@ -72,8 +62,14 @@ const LogoDetection = () => {
     )
       .then((response) => response.json())
       .then((result) => {
-        brandLogo(displayLogoName(result));
-        displayLogoBox(calculateLogoLocation(result));
+        const logoNames = retrieveLogoNames(result);
+        const logoLocation = calculateLogoLocation(result);
+        setState({
+          ...state,
+          brandNames: logoNames,
+          box: logoLocation,
+          imageUrl: state.input,
+        });
       })
       .catch((error) => console.log("error", error));
   };
@@ -124,7 +120,7 @@ const LogoDetection = () => {
             onButtonSubmit={onButtonSubmit}
           />
           <FaceRecognition imageUrl={state.imageUrl} box={state.box} />
-          <DescriptionArea brandName={state.brandName} />
+          <DescriptionArea brandNames={state.brandNames} />
         </ToggleVisibility>
       </div>
     </Container>

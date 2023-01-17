@@ -10,18 +10,22 @@ const Icons = () => {
     backgroundFour: "rgb(210, 401, 241)",
   };
   const redBackground = () => {
+    document.body.style.background = "none";
     document.body.style.backgroundColor = divStyle.background;
   };
 
   const greenBackground = () => {
+    document.body.style.background = "none";
     document.body.style.backgroundColor = divStyle.backgroundTwo;
   };
 
   const blueBackground = () => {
+    document.body.style.background = "none";
     document.body.style.backgroundColor = divStyle.backgroundThree;
   };
 
   const backgroundFour = () => {
+    document.body.style.background = "none";
     document.body.style.backgroundColor = divStyle.backgroundFour;
   };
 
@@ -30,7 +34,7 @@ const Icons = () => {
       <ul className="nav" style={{ display: "flex", justifyContent: "center" }}>
         <li>
           <button onClick={greenBackground}>
-            <Link to={`/`}>
+            <Link to={`/home`}>
               <span className="icon-home"></span>
             </Link>
           </button>
